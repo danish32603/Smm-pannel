@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d1b">
+  <title>JAM DANISH SMM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">👑 JAM DANISH <span>SMM</span></div>
+    <a class="site-link" href="https://jamdanish-official.vercel.app/" target="_blank" rel="noopener noreferrer">Open Official Website ↗</a>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">SOCIAL MEDIA MANAGEMENT</p>
+      <h1>Your SMM Control Panel</h1>
+      <p class="muted">Manage services and orders through your connected provider account.</p>
+    </section>
+
+    <section class="music card">
+      <div>
+        <h2>🎵 JAM DANISH MUSIC</h2>
+        <p class="muted small">Add your own MP3 file as <code>public/music.mp3</code>.</p>
+      </div>
+      <audio controls loop preload="none">
+        <source src="/music.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+      </audio>
+    </section>
+
+    <section id="loginCard" class="card login-card">
+      <h2>Admin Login</h2>
+      <form id="loginForm">
+        <label for="password">Admin password</label>
+        <input id="password" type="password" placeholder="Enter your admin password" required autocomplete="current-password">
+        <button class="primary" type="submit">Login to Panel</button>
+      </form>
+      <p id="loginMsg" class="message" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="section-head">
+        <h2>Dashboard</h2>
+        <button id="logoutBtn" class="secondary">Logout</button>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Wallet Balance</h3>
+          <button id="balanceBtn" class="primary">Check Provider Balance</button>
+          <pre id="balanceOutput">Not loaded yet.</pre>
+        </article>
+        <article class="card">
+          <h3>Services</h3>
+          <button id="servicesBtn" class="primary">Load Services</button>
+          <p class="muted small">Use a service ID from the returned list when placing an order.</p>
+          <pre id="servicesOutput">Not loaded yet.</pre>
+        </article>
+      </div>
+
+      <article class="card">
+        <h3>Place New Order</h3>
+        <form id="orderForm">
+          <label for="service">Service ID</label>
+          <input id="service" type="number" min="1" step="1" required placeholder="Example: 123">
+          <label for="link">Post / Profile URL</label>
+          <input id="link" type="url" required placeholder="https://...">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" type="number" min="1" step="1" required placeholder="Example: 100">
+          <button class="primary" type="submit">Submit Order</button>
+        </form>
+        <pre id="orderOutput">Order response will appear here.</pre>
+      </article>
+
+      <article class="card">
+        <h3>Check Order Status</h3>
+        <form id="statusForm">
+          <label for="orderId">Order ID</label>
+          <input id="orderId" type="number" min="1" step="1" required placeholder="Enter order ID">
+          <button class="primary" type="submit">Check Status</button>
+        </form>
+        <pre id="statusOutput">Status will appear here.</pre>
+      </article>
+    </section>
+
+    <footer>JAM DANISH SMM · API key stays on the server</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
