@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html><head><title>Admin Login</title>
-<style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background:#0f0f0f;margin:0} .box{background:white;padding:25px;border-radius:15px;width:300px;text-align:center} input{width:100%;padding:11px;margin:8px 0;border-radius:8px;border:1px solid #ccc;box-sizing:border-box} button{width:100%;padding:12px;background:#25D366;border:none;border-radius:10px;font-weight:bold;cursor:pointer}</style>
-</head><body>
+<html>
+<head>
+<title>Admin Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background:#f4f4f4;margin:0}
+.box{background:white;padding:25px;border-radius:12px;width:300px;text-align:center;box-shadow:0 0 10px #ccc}
+input{width:90%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:6px}
+button{width:95%;padding:11px;background:black;color:white;border:none;border-radius:6px;cursor:pointer;font-size:16px}
+</style>
+</head>
+<body>
 <div class="box">
 <h2>🔐 Admin Login</h2>
 <p style="font-size:13px">Jam Danish - SMM Panel</p>
@@ -19,8 +28,9 @@ function login(){
     localStorage.setItem('jam_admin','yes');
     window.location.href='dashboard.html';
   } else {
-    document.getElementById('msg').innerText='Galat Username ya Password hai!';
+    document.getElementById('msg').innerText='Galat Username ya Password';
   }
 }
 </script>
-</body></html>
+</body>
+</html>
