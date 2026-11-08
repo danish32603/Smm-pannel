@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register - Jam Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:20px;margin:0}
+.box{background:white;padding:25px;border-radius:12px;width:320px;text-align:center}
+input{width:90%;padding:11px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+button{width:95%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+a{color:#2563eb;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Register</h2>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="reg()">Register</button>
+<p id="msg" style="color:green"></p>
+<p>Already have an account? <a href="login.html">Login here</a></p>
+</div>
+<script>
+function reg(){
+  let n=document.getElementById('name').value;
+  let e=document.getElementById('email').value;
+  let p=document.getElementById('pass').value;
+  if(!n||!e||!p){ alert('Pehle Sab Kuch Bharo'); return; }
+  localStorage.setItem('jam_user', e);
+  localStorage.setItem('jam_pass', p);
+  localStorage.setItem('jam_name', n);
+  localStorage.setItem('jam_balance', 500);
+  document.getElementById('msg').innerText='✅ Register Ho Gaya! Ab Login Karo.';
+  setTimeout(()=>{ window.location.href='login.html'; },1000);
+}
+</script>
+</body>
+</html>
