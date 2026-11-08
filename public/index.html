@@ -89,5 +89,33 @@
     <footer>JAM DANISH SMM · API key stays on the server</footer>
   </main>
   <script src="/app.js"></script>
+  <section class="card">
+<h3>⚡ Order Karo - Auto SMM</h3>
+<select id="service" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
+<option value="1">TikTok Followers</option>
+<option value="2">Instagram Followers</option>
+<option value="3">YouTube Subscribers</option>
+<option value="4">Instagram Likes</option>
+</select>
+<input id="link" type="text" placeholder="Apna Link yahan dalo - TikTok / Insta link" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
+<input id="qty" type="number" value="100" placeholder="Quantity" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
+<button onclick="placeOrder()" style="width:100%;background:#25D366;padding:12px;border:none;border-radius:10px;font-weight:bold">Order Lagao</button>
+<p id="order-result" style="font-size:13px"></p>
+</section>
+
+<script>
+async function placeOrder(){
+  let btn = event.target;
+  btn.innerText = 'Order ja raha hai...';
+  let res = await fetch('/api/order', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ service: document.getElementById('service').value, link: document.getElementById('link').value, quantity: document.getElementById('qty').value })
+  });
+  let data = await res.json();
+  document.getElementById('order-result').innerText = 'Result: ' + JSON.stringify(data);
+  btn.innerText = 'Order Lagao';
+}
+    </script>
 </body>
 </html>
