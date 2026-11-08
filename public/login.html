@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - Jam Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#f4f4f4;display:flex;justify-content:center;padding:20px;margin:0}
+.box{background:white;padding:25px;border-radius:12px;width:320px;text-align:center}
+input{width:90%;padding:11px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+button{width:95%;padding:12px;background:black;color:white;border:none;border-radius:8px;font-size:16px}
+a{color:#2563eb;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Login</h2>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="log()">Login</button>
+<p id="msg" style="color:red"></p>
+<p>New Ho? <a href="register.html">Register Karo</a></p>
+</div>
+<script>
+function log(){
+  let e=document.getElementById('email').value;
+  let p=document.getElementById('pass').value;
+  let se=localStorage.getItem('jam_user');
+  let sp=localStorage.getItem('jam_pass');
+  if(e==se && p==sp){
+    window.location.href='index.html';
+  } else {
+    document.getElementById('msg').innerText='Galat Email ya Password';
+  }
+}
+</script>
+</body>
+</html>
