@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Login</title>
+<title>Admin Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;background:#f4f4f4;margin:0}
-.box{background:white;padding:25px;border-radius:12px;width:300px;text-align:center;box-shadow:0 0 10px #ccc}
-input{width:90%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:6px}
-button{width:95%;padding:11px;background:black;color:white;border:none;border-radius:6px;cursor:pointer;font-size:16px}
+body{font-family:sans-serif;background:#f4f4f4;margin:0;padding:20px}
+.box{background:white;padding:20px;border-radius:10px;max-width:600px;margin:auto}
+button{padding:10px 15px;background:red;color:white;border:none;border-radius:5px;cursor:pointer}
+.card{background:#eef;padding:15px;border-radius:8px;margin:10px 0}
 </style>
 </head>
 <body>
+<script>
+if(localStorage.getItem('jam_admin')!=='yes'){
+  window.location.href='admin.html';
+}
+</script>
 <div class="box">
-<h2>🔐 Admin Login</h2>
-<p style="font-size:13px">Jam Danish - SMM Panel</p>
-<input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-<p id="msg" style="color:red;font-size:13px"></p>
-<p style="font-size:11px">Demo: admin / Jam123</p>
+<h2>👋 Welcome Jam Danish</h2>
+<p>SMM Panel - Admin Dashboard</p>
+<div class="card"><b>Total Orders:</b> 0<br><b>Total Users:</b> 0<br><b>Balance:</b> Rs 0</div>
+<div class="card"><b>New Orders:</b><br>Abhi koi order nahi hai.</div>
+<button onclick="logout()">Logout</button>
 </div>
 <script>
-function login(){
-  let u = document.getElementById('user').value;
-  let p = document.getElementById('pass').value;
-  if(u=='admin' && p=='Jam123'){
-    localStorage.setItem('jam_admin','yes');
-    window.location.href='dashboard.html';
-  } else {
-    document.getElementById('msg').innerText='Galat Username ya Password';
-  }
+function logout(){
+  localStorage.removeItem('jam_admin');
+  window.location.href='admin.html';
 }
 </script>
 </body>
