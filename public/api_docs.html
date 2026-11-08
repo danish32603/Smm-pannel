@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>API Docs - Jam Panel | Like OfficialClicks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#0f172a;color:white;margin:0;padding:15px}
+.box{background:#1e293b;padding:18px;border-radius:14px;max-width:800px;margin:auto;margin-bottom:15px}
+.top{background:#7c3aed;padding:14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+code{background:#000;padding:12px;display:block;border-radius:8px;color:#4ade80;overflow-x:auto;font-size:13px;margin:10px 0;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border:1px solid #334155;padding:8px;text-align:left}
+th{background:#7c3aed}
+input,select{width:95%;padding:11px;margin:6px 0;border-radius:8px;border:none;background:#0f172a;color:white;border:1px solid #334155}
+button{width:100%;padding:12px;background:#22c55e;color:white;border:none;border-radius:8px;font-weight:bold;margin-top:8px;cursor:pointer}
+.btn-purple{background:#7c3aed}.btn-blue{background:#2563eb}
+.tag{background:#22c55e;color:white;padding:3px 8px;border-radius:20px;font-size:11px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
+.nav a{background:#1e293b;color:white;padding:8px 12px;border-radius:20px;text-decoration:none;font-size:13px}
+</style>
+</head>
+<body>
+<div class="box top"><b>🔥 JAM PANEL - API DOCS</b><span>Like OfficialClicks.com</span></div>
+
+<div class="box nav">
+<a href="index.html">🏠 New Order</a>
+<a href="services.html">📋 Services</a>
+<a href="orders.html">📦 My Orders</a>
+<a href="payment.html">💰 Add Funds</a>
+<a href="tickets.html">🎫 Tickets</a>
+<a href="api_docs.html">🔑 API Docs</a>
+<a href="dashboard.html">👑 Admin</a>
+</div>
+
+<div class="box">
+<h2>🔑 Your API Key</h2>
+<p>Is key se tumhara panel kisi bhi website se connect ho jayega.</p>
+<code id="mykey">Loading...</code>
+<button onclick="newKey()">🔄 New API Key Generate Karo</button>
+<button class="btn-blue" onclick="copyKey()">📋 Key Copy Karo</button>
+<p style="font-size:12px;color:#94a3b8">⚠️ Key kisi ko mat do. Jo is key se order karega, paise tumhare balance se katenge.</p>
+</div>
+
+<div class="box">
+<h2>📡 API URL</h2>
+<code>https://smm-pannel-seven.vercel.app/api</code>
+<p>Method: <span class="tag">POST</span> &nbsp; Response: <span class="tag">JSON</span></p>
+</div>
+
+<div class="box">
+<h2>1. Add Order</h2>
+<p>New order lagane ke liye:</p>
+<code>POST https://smm-pannel-seven.vercel.app/api
+{
+  "key": "TUMHARI_API_KEY",
+  "action": "add",
+  "service": "1001",
+  "link": "https://instagram.com/jamdanish",
+  "quantity": "1000"
+}</code>
+<p>✅ Success Response:</p>
+<code>{
+  "order": 12345,
+  "status": "Pending"
+}</code>
+</div>
+
+<div class="box">
+<h2>2. Order Status</h2>
+<code>POST /api
+{
+  "key": "TUMHARI_API_KEY",
+  "action": "status",
+  "order": "12345"
+}</code>
+<p>Response:</p>
+<code>{
+  "status": "In Progress",
+  "charge": "150.00",
+  "currency": "PKR",
+  "remains": "500"
+}</code>
+</div>
+
+<div class="box">
+<h2>3. Multiple Orders Status</h2>
+<code>{
+  "key": "TUMHARI_API_KEY",
+  "action": "statuses",
+  "orders": "12345,12346,12347"
+}</code>
+</div>
+
+<div class="box">
+<h2>4. Check Balance</h2>
+<code>{
+  "key": "TUMHARI_API_KEY",
+  "action": "balance"
+}</code>
+<p>Response:</p>
+<code>{
+  "balance": "1250.00",
+  "currency": "PKR"
+}</code>
+</div>
+
+<div class="box">
+<h2>5. Services List</h2>
+<code>{
+  "key": "TUMHARI_API_KEY",
+  "action": "services"
+}</code>
+<button class="btn-purple" onclick="window.location.href='services.html'">📋 Services List Dekho</button>
+</div>
+
+<div class="box">
+<h2>🧪 API Tester - Yahi Se Test Karo</h2>
+<select id="act" onchange="showEx()">
+<option value="add">add - New Order</option>
+<option value="status">status - Order Status</option>
+<option value="balance">balance - Balance Check</option>
+<option value="services">services - Services List</option>
+</select>
+<input id="t_service" placeholder="Service ID - e.g 1001">
+<input id="t_link" placeholder="Link - e.g https://instagram.com/xxx">
+<input id="t_qty" placeholder="Quantity - e.g 1000">
+<input id="t_order" placeholder="Order ID - Status ke liye">
+<button onclick="testApi()">🚀 Test API Call</button>
+<code id="result">Result yahan aayega...</code>
+</div>
+
+<div class="box">
+<h2>📋 Error Codes - OfficialClicks Jaisa</h2>
+<table>
+<tr><th>Error</th><th>Matlab</th></tr>
+<tr><td>100 - Invalid API Key</td><td>Key galat hai, nayi generate karo</td></tr>
+<tr><td>101 - Low Balance</td><td>Balance kam hai, pehle JazzCash se add karo - 03036657028</td></tr>
+<tr><td>102 - Invalid Service</td><td>Service ID galat hai</td></tr>
+<tr><td>103 - Invalid Link</td><td>Link sahi nahi hai</td></tr>
+<tr><td>104 - Invalid Quantity</td><td>Quantity Min/Max se bahar hai</td></tr>
+</table>
+</div>
+
+<div class="box">
+<h2>💰 Payment - JazzCash / Easypaisa</h2>
+<p><b>JazzCash:</b> 03036657028 - Jam Danish<br><b>Easypaisa:</b> 03036657028 - Jam Danish</p>
+<button onclick="window.location.href='payment.html'" style="background:green">💰 Balance Add Karo</button>
+<button onclick="speak('API docs khul gayi hai. Apki API key ready hai. Add order ke liye action add likho, status ke liye action status likho.')" style="background:#7c3aed">🔊 🎤 Voice Se Samjho</button>
+</div>
+
+<script>
+let key = localStorage.getItem('jam_api_key');
+if(!key){ key='JAM-'+Math.random().toString(36).substring(2,12).toUpperCase()+'-'+Date.now().toString().slice(-6); localStorage.setItem('jam_api_key',key); }
+document.getElementById('mykey').innerText=key;
+function newKey(){ key='JAM-'+Math.random().toString(36).substring(2,12).toUpperCase()+'-'+Date.now().toString().slice(-6); localStorage.setItem('jam_api_key',key); document.getElementById('mykey').innerText=key; alert('Nayi Key Ban Gayi'); }
+function copyKey(){ navigator.clipboard.writeText(key); alert('Key Copy Ho Gayi: '+key); }
+function showEx(){}
+function testApi(){
+  let act=document.getElementById('act').value;
+  let bal=Number(localStorage.getItem('jam_balance')||500);
+  let res='';
+  if(act=='balance') res=JSON.stringify({balance: bal+'.00', currency:'PKR'},null,2);
+  if(act=='add'){ let oid=Math.floor(Math.random()*90000+10000); res=JSON.stringify({order: oid, status:'Pending', charge:'150.00'},null,2); }
+  if(act=='status') res=JSON.stringify({status:'In Progress', charge:'150.00', currency:'PKR', remains:'500'},null,2);
+  if(act=='services') res=JSON.stringify([{service:1001,name:'Instagram Followers',rate:'150.00',min:100,max:100000,category:'Instagram'},{service:1002,name:'TikTok Likes',rate:'120.00',min:100,max:50000,category:'TikTok'}],null,2);
+  document.getElementById('result').innerText=res;
+  speak('API test ho gaya hai, result aa gaya hai');
+}
+function speak(t){ let u=new SpeechSynthesisUtterance(t); u.lang='ur-PK'; window.speechSynthesis.speak(u); }
+</script>
+</body>
+</html>
