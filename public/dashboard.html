@@ -1,27 +1,85 @@
 <!DOCTYPE html>
-<html><head><title>Admin Dashboard</title>
+<html>
+<head>
+<title>Admin Dashboard - Jam Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{font-family:sans-serif;background:#f4f4f4;margin:0;padding:20px}
-.box{background:white;padding:20px;border-radius:10px;max-width:600px;margin:auto}
-button{padding:10px 15px;background:red;color:white;border:none;border-radius:5px;cursor:pointer}
-.card{background:#eef;padding:15px;border-radius:8px;margin:10px 0}
-</style></head><body>
+body{font-family:sans-serif;background:#0f172a;color:white;margin:0}
+.top{background:#1e293b;padding:15px;display:flex;justify-content:space-between;align-items:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px}
+.card{background:#1e293b;padding:15px;border-radius:12px}
+.card b{font-size:22px;color:#22c55e}
+button{padding:10px;border:none;border-radius:8px;cursor:pointer;font-weight:bold}
+.btn-green{background:#22c55e;color:white;width:100%;margin-top:10px}
+.btn-red{background:red;color:white}
+input,select{width:95%;padding:10px;margin:5px 0;border-radius:8px;border:none}
+.table{background:#1e293b;margin:15px;padding:15px;border-radius:12px}
+#chat{position:fixed;bottom:15px;right:15px;background:white;color:black;width:280px;border-radius:12px;padding:10px;box-shadow:0 0 15px #000}
+#msgs{height:150px;overflow:auto;font-size:13px}
+.msg{background:#eef;padding:6px;border-radius:8px;margin:4px 0}
+</style>
+</head>
+<body>
 <script>
-if(localStorage.getItem('jam_admin')!=='yes'){
-  window.location.href='admin.html';
-}
+if(localStorage.getItem('jam_admin')!=='yes'){window.location.href='admin.html'}
+let bal = localStorage.getItem('admin_bal') || 12500;
 </script>
-<div class="box">
-<h2>👋 Welcome Jam Danish</h2>
-<p>SMM Panel - Admin Dashboard</p>
-<div class="card"><b>Total Orders:</b> 0<br><b>Total Users:</b> 0<br><b>Balance:</b> Rs 0</div>
-<div class="card"><b>New Orders:</b><br>Abhi koi order nahi hai.</div>
-<button onclick="logout()">Logout</button>
+<div class="top">
+<b>👑 JAM PANEL - ADMIN</b>
+<button class="btn-red" onclick="logout()">Logout</button>
 </div>
+
+<div class="grid">
+<div class="card">Total Balance<br><b>Rs <span id="bal"></span></b><br><button class="btn-green" onclick="addBal()">+ Add Balance</button></div>
+<div class="card">Total Orders<br><b>1,240</b><br><span style="color:#22c55e">▲ Trending</span></div>
+<div class="card">Total Users<br><b>856</b></div>
+<div class="card">Today Earning<br><b>Rs 2,450</b></div>
+</div>
+
+<div class="table">
+<h3>🔥 Trending Services - Click to Manage</h3>
+<select id="srv">
+<option>Instagram Followers - Rs 150 / 1k</option>
+<option>TikTok Likes - Rs 120 / 1k</option>
+<option>YouTube Views - Rs 200 / 1k</option>
+<option>Facebook Likes - Rs 100 / 1k</option>
+</select>
+<input id="price" placeholder="New Price likho">
+<button class="btn-green" onclick="alert('Price Update Ho Gaya ✅')">Update Price</button>
+</div>
+
+<div class="table">
+<h3>📦 Latest Orders</h3>
+<p>1. @jamdanish - IG Followers 1k - <b style="color:#22c55e">Completed</b></p>
+<p>2. @ali - TikTok Likes 5k - <b style="color:orange">Pending</b></p>
+<p>3. @sara - YT Views 10k - <b style="color:#22c55e">Completed</b></p>
+<button class="btn-green" onclick="alert('Order Approved ✅')">Approve All Orders</button>
+</div>
+
+<div id="chat">
+<b>🤖 Jam Assistant</b>
+<div id="msgs"><div class="msg">Assalam-o-Alaikum! Main Jam Assistant hun. Kya help chahiye? Balance, Order, Price likho.</div></div>
+<input id="q" placeholder="Yahan likho...">
+<button class="btn-green" onclick="ask()">Send</button>
+</div>
+
 <script>
-function logout(){
-  localStorage.removeItem('jam_admin');
-  window.location.href='admin.html';
+document.getElementById('bal').innerText = bal;
+function addBal(){
+  let a = prompt('Kitna Balance Add Karna Hai?');
+  if(a){ bal = Number(bal)+Number(a); localStorage.setItem('admin_bal',bal); document.getElementById('bal').innerText=bal; alert('Balance Add Ho Gaya ✅'); }
+}
+function logout(){ localStorage.removeItem('jam_admin'); window.location.href='admin.html'; }
+function ask(){
+  let q = document.getElementById('q').value.toLowerCase();
+  let ans = 'Samajh nahi aaya, dobara likho. Balance, Order ya Price likho.';
+  if(q.includes('balance')) ans = 'Apka Balance Rs '+bal+' hai.';
+  if(q.includes('order')) ans = 'Aj 24 naye orders aaye hain, 20 complete ho gaye.';
+  if(q.includes('price')) ans = 'Trending Price: IG Followers Rs 150/1k hai.';
+  if(q.includes('salam')||q.includes('hi')) ans = 'Walaikum Salam Bhai! Hukum karo.';
+  document.getElementById('msgs').innerHTML += '<div class="msg"><b>Tum:</b> '+q+'</div><div class="msg"><b>Assistant:</b> '+ans+'</div>';
+  document.getElementById('q').value='';
 }
 </script>
-</body></html>
+</body>
+</html>
