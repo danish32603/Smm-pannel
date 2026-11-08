@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head><title>Admin Dashboard</title>
+<style>
+body{font-family:sans-serif;background:#f4f4f4;margin:0;padding:20px}
+.box{background:white;padding:20px;border-radius:10px;max-width:600px;margin:auto}
+button{padding:10px 15px;background:red;color:white;border:none;border-radius:5px;cursor:pointer}
+.card{background:#eef;padding:15px;border-radius:8px;margin:10px 0}
+</style></head><body>
+<script>
+if(localStorage.getItem('jam_admin')!=='yes'){
+  window.location.href='admin.html';
+}
+</script>
+<div class="box">
+<h2>👋 Welcome Jam Danish</h2>
+<p>SMM Panel - Admin Dashboard</p>
+<div class="card"><b>Total Orders:</b> 0<br><b>Total Users:</b> 0<br><b>Balance:</b> Rs 0</div>
+<div class="card"><b>New Orders:</b><br>Abhi koi order nahi hai.</div>
+<button onclick="logout()">Logout</button>
+</div>
+<script>
+function logout(){
+  localStorage.removeItem('jam_admin');
+  window.location.href='admin.html';
+}
+</script>
+</body></html>
