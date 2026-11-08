@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jam SMM Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#f4f4f4;margin:0;padding:12px}
+.box{background:white;padding:16px;border-radius:14px;max-width:550px;margin:auto}
+.top{background:#111;color:white;padding:14px;border-radius:12px;display:flex;justify-content:space-between}
+.card{background:#f8f8f8;border:1px solid #ddd;padding:12px;border-radius:10px;margin:8px 0;cursor:pointer;display:flex;justify-content:space-between}
+.price{color:green;font-weight:bold}
+button{width:100%;padding:12px;background:black;color:white;border:none;border-radius:8px;margin-top:10px;font-weight:bold}
+input,select{width:95%;padding:11px;margin:6px 0;border-radius:8px;border:1px solid #ccc}
+.voice{background:#7c3aed;color:white;padding:15px;border-radius:12px;margin-top:15px;text-align:center}
+.voice button{background:white;color:#7c3aed}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="top"><b>🔥 JAM SMM PANEL</b><span>Balance: Rs <b id="cbal">500</b></span></div>
+<button onclick="window.location.href='payment.html'" style="background:green">💰 Balance Add Karo - JazzCash 03036657028</button>
+<h3>🛒 Order Lagao</h3>
+<select id="srv">
+<option value="150">Instagram Followers - Rs 150 / 1k</option>
+<option value="80">Instagram Likes - Rs 80 / 1k</option>
+<option value="50">Instagram Views - Rs 50 / 1k</option>
+<option value="180">TikTok Followers - Rs 180 / 1k</option>
+<option value="120">TikTok Likes - Rs 120 / 1k</option>
+<option value="60">TikTok Views - Rs 60 / 1k</option>
+<option value="250">YouTube Subscribers - Rs 250 / 1k</option>
+<option value="200">YouTube Views - Rs 200 / 1k</option>
+<option value="100">Facebook Likes - Rs 100 / 1k</option>
+<option value="300">WhatsApp Followers - Rs 300 / 1k</option>
+</select>
+<input id="link" placeholder="Apna Link Yahan Paste Karo">
+<input id="qty" type="number" placeholder="Quantity - 1000" oninput="updatePrice()">
+<p>Total: <b style="color:green">Rs <span id="total">0</span></b></p>
+<button onclick="placeOrder()">Order Place Karo 🚀</button>
+<p id="msg" style="color:green;font-weight:bold"></p>
+<div class="card" onclick="sel('Instagram Followers',150)"><span>📸 IG Followers</span><span class="price">Rs 150</span></div>
+<div class="card" onclick="sel('TikTok Likes',120)"><span>🎵 TikTok Likes</span><span class="price">Rs 120</span></div>
+<div class="card" onclick="sel('YouTube Views',200)"><span>▶️ YT Views</span><span class="price">Rs 200</span></div>
+<div class="voice">
+<h3>🎤 Voice AI Assistant</h3>
+<p id="amsg">میں بول کر سمجھاؤں گا، مائیک دباؤ</p>
+<button onclick="startVoice()">🎤 بول کر پوچھو</button>
+<button onclick="speak('Salam! Pehle service select karo, phir link dalo, phir order dabao. Balance ke liye upar green button dabao.')">🔊 سمجھاؤ کیسے آرڈر کرنا ہے</button>
+<input id="q" placeholder="یا یہاں لکھ کر پوچھو...">
+<button onclick="ask()">Send</button>
+</div>
+</div>
+<script>
+let bal = Number(localStorage.getItem('jam_balance')||500);
+document.getElementById('cbal').innerText=bal;
+function updatePrice(){ let q=document.getElementById('qty').value||0; let p=document.getElementById('srv').value; document.getElementById('total').innerText=Math.round((p*q)/1000); }
+function sel(name,price){ let s=document.getElementById('srv'); for(let i=0;i<s.options.length;i++){ if(s.options[i].text.includes(name)){ s.selectedIndex=i; } } updatePrice(); speak(name+' select ho gaya hai, ab link dalo'); }
+function placeOrder(){ let l=document.getElementById('link').value; let q=document.getElementById('qty').value; let total=document.getElementById('total').innerText; if(!l||!q){ speak('Pehle link aur quantity dalo'); alert('Pehle Link aur Quantity Dalo'); return; } if(Number(total)>bal){ speak('Balance kam hai, pehle balance add karo'); alert('Balance Kam Hai'); return; } bal-=Number(total); localStorage.setItem('jam_balance',bal); document.getElementById('cbal').innerText=bal; document.getElementById('msg').innerText='✅ Order Place Ho Gaya!'; speak('Mubarak ho, apka order place ho gaya hai'); }
+function speak(text){ document.getElementById('amsg').innerText=text; let u=new SpeechSynthesisUtterance(text); u.lang='ur-PK'; window.speechSynthesis.speak(u); }
+function ask(){ let q=document.getElementById('q').value.toLowerCase(); let a='Service select karo, link dalo, order dabao. Balance ke liye green button dabao.'; if(q.includes('balance')) a='Apka balance '+bal+' rupay hai.'; if(q.includes('price')) a='Instagram followers 150, TikTok likes 120, YouTube views 200 rupay hai.'; if(q.includes('payment')||q.includes('jazz')) a='Payment ke liye upar green button dabao, 03036657028 pe JazzCash bhejo, Trx ID likho.'; if(q.includes('salam')) a='Walaikum Salam bhai, hukum karo.'; speak(a); }
+function startVoice(){ let rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)(); rec.lang='ur-PK'; rec.onresult=function(e){ document.getElementById('q').value=e.results[0][0].transcript; ask(); }; rec.start(); speak('Sun raha hun, bolo'); }
+</script>
+</body>
+</html>
