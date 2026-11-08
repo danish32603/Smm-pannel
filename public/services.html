@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><head><title>Services - Jam Panel</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{font-family:sans-serif;background:#f4f4f4;padding:12px}table{width:100%;background:white;border-collapse:collapse;font-size:13px}th,td{border:1px solid #ddd;padding:8px}th{background:black;color:white}input{width:95%;padding:11px;border-radius:8px;border:1px solid #ccc;margin-bottom:10px}</style></head>
+<body><h2>📋 All Services - OfficialClicks Style</h2><input id="s" placeholder="Search Service... Instagram, TikTok, YouTube" oninput="filt()"><table><tr><th>ID</th><th>Service</th><th>Rate / 1k</th><th>Min-Max</th><th>Action</th></tr><tbody id="tb"></tbody></table>
+<script>
+let data=[
+[1001,'Instagram Followers - Real',150,100,100000],[1002,'Instagram Likes',80,50,50000],[1003,'Instagram Views',50,100,100000],[1004,'Instagram Comments',400,10,5000],
+[2001,'TikTok Followers',180,100,100000],[2002,'TikTok Likes',120,50,50000],[2003,'TikTok Views',60,100,200000],
+[3001,'YouTube Subscribers',250,100,20000],[3002,'YouTube Views',200,100,100000],[3003,'YouTube Watch Time',900,100,5000],
+[4001,'Facebook Page Likes',100,100,50000],[4002,'Facebook Post Likes',70,50,20000],
+[5001,'Telegram Members',150,100,50000],[6001,'WhatsApp Channel Followers',300,100,20000]
+];
+function render(list){ document.getElementById('tb').innerHTML=list.map(d=>`<tr><td>${d[0]}</td><td>${d[1]}</td><td>Rs ${d[2]}</td><td>${d[3]} - ${d[4]}</td><td><button onclick="window.location.href='index.html'">Order</button></td></tr>`).join(''); }
+render(data);
+function filt(){ let q=document.getElementById('s').value.toLowerCase(); render(data.filter(d=>d[1].toLowerCase().includes(q))); }
+</script></body></html>
