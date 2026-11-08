@@ -1,121 +1,59 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090d1b">
-  <title>JAM DANISH SMM</title>
-  <link rel="stylesheet" href="/style.css">
+<title>Jam SMM Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;background:#f4f4f4;margin:0;padding:15px}
+.box{background:white;padding:18px;border-radius:12px;max-width:500px;margin:auto}
+.card{background:#111;color:white;padding:15px;border-radius:12px;margin:10px 0;cursor:pointer}
+.card:hover{background:#22c55e}
+button{width:100%;padding:12px;background:black;color:white;border:none;border-radius:8px;margin-top:10px;font-weight:bold}
+input,select{width:95%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc}
+#chat{background:#eef;padding:10px;border-radius:12px;margin-top:15px}
+</style>
 </head>
 <body>
-  <header class="top">
-    <div class="brand">👑 JAM DANISH <span>SMM</span></div>
-    <a class="site-link" href="https://jamdanish-official.vercel.app/" target="_blank" rel="noopener noreferrer">Open Official Website ↗</a>
-  </header>
+<div class="box">
+<h2>🔥 Jam SMM Panel</h2>
+<p>Balance: <b>Rs <span id="cbal">500</span></b> <button onclick="addBal()" style="width:auto;padding:5px 10px;background:green">+ Add</button></p>
 
-  <main class="wrap">
-    <section class="hero">
-      <p class="eyebrow">SOCIAL MEDIA MANAGEMENT</p>
-      <h1>Your SMM Control Panel</h1>
-      <p class="muted">Manage services and orders through your connected provider account.</p>
-    </section>
+<h3>⚡ Trending Services - Click Karo</h3>
+<div class="card" onclick="selectSrv('Instagram Followers - Rs 150')">📸 Instagram Followers - Rs 150 / 1k 🔥</div>
+<div class="card" onclick="selectSrv('TikTok Likes - Rs 120')">🎵 TikTok Likes - Rs 120 / 1k 🔥</div>
+<div class="card" onclick="selectSrv('YouTube Views - Rs 200')">▶️ YouTube Views - Rs 200 / 1k 🔥</div>
 
-    <section class="music card">
-      <div>
-        <h2>🎵 JAM DANISH MUSIC</h2>
-        <p class="muted small">Add your own MP3 file as <code>public/music.mp3</code>.</p>
-      </div>
-      <audio controls loop preload="none">
-        <source src="/music.mp3" type="audio/mpeg">
-        Your browser does not support audio.
-      </audio>
-    </section>
+<select id="srv"><option>Instagram Followers - Rs 150</option><option>TikTok Likes - Rs 120</option><option>YouTube Views - Rs 200</option></select>
+<input id="link" placeholder="Apna Link Yahan Paste Karo">
+<input id="qty" type="number" placeholder="Quantity e.g 1000">
+<button onclick="placeOrder()">Order Place Karo 🚀</button>
+<p id="msg" style="color:green"></p>
 
-    <section id="loginCard" class="card login-card">
-      <h2>Admin Login</h2>
-      <form id="loginForm">
-        <label for="password">Admin password</label>
-        <input id="password" type="password" placeholder="Enter your admin password" required autocomplete="current-password">
-        <button class="primary" type="submit">Login to Panel</button>
-      </form>
-      <p id="loginMsg" class="message" aria-live="polite"></p>
-    </section>
-
-    <section id="dashboard" hidden>
-      <div class="section-head">
-        <h2>Dashboard</h2>
-        <button id="logoutBtn" class="secondary">Logout</button>
-      </div>
-
-      <div class="grid">
-        <article class="card">
-          <h3>Wallet Balance</h3>
-          <button id="balanceBtn" class="primary">Check Provider Balance</button>
-          <pre id="balanceOutput">Not loaded yet.</pre>
-        </article>
-        <article class="card">
-          <h3>Services</h3>
-          <button id="servicesBtn" class="primary">Load Services</button>
-          <p class="muted small">Use a service ID from the returned list when placing an order.</p>
-          <pre id="servicesOutput">Not loaded yet.</pre>
-        </article>
-      </div>
-
-      <article class="card">
-        <h3>Place New Order</h3>
-        <form id="orderForm">
-          <label for="service">Service ID</label>
-          <input id="service" type="number" min="1" step="1" required placeholder="Example: 123">
-          <label for="link">Post / Profile URL</label>
-          <input id="link" type="url" required placeholder="https://...">
-          <label for="quantity">Quantity</label>
-          <input id="quantity" type="number" min="1" step="1" required placeholder="Example: 100">
-          <button class="primary" type="submit">Submit Order</button>
-        </form>
-        <pre id="orderOutput">Order response will appear here.</pre>
-      </article>
-
-      <article class="card">
-        <h3>Check Order Status</h3>
-        <form id="statusForm">
-          <label for="orderId">Order ID</label>
-          <input id="orderId" type="number" min="1" step="1" required placeholder="Enter order ID">
-          <button class="primary" type="submit">Check Status</button>
-        </form>
-        <pre id="statusOutput">Status will appear here.</pre>
-      </article>
-    </section>
-
-    <footer>JAM DANISH SMM · API key stays on the server</footer>
-  </main>
-  <script src="/app.js"></script>
-  <section class="card">
-<h3>⚡ Order Karo - Auto SMM</h3>
-<select id="service" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
-<option value="1">TikTok Followers</option>
-<option value="2">Instagram Followers</option>
-<option value="3">YouTube Subscribers</option>
-<option value="4">Instagram Likes</option>
-</select>
-<input id="link" type="text" placeholder="Apna Link yahan dalo - TikTok / Insta link" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
-<input id="qty" type="number" value="100" placeholder="Quantity" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px">
-<button onclick="placeOrder()" style="width:100%;background:#25D366;padding:12px;border:none;border-radius:10px;font-weight:bold">Order Lagao</button>
-<p id="order-result" style="font-size:13px"></p>
-</section>
+<div id="chat">
+<b>🤖 Jam Assistant</b>
+<p id="amsg" style="font-size:13px">Salam! Order karne ke liye Service select karo, Link dalo, Order dabao.</p>
+<input id="q" placeholder="Assistant se poocho...">
+<button onclick="ask()">Ask Assistant</button>
+</div>
+</div>
 
 <script>
-async function placeOrder(){
-  let btn = event.target;
-  btn.innerText = 'Order ja raha hai...';
-  let res = await fetch('/api/order', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ service: document.getElementById('service').value, link: document.getElementById('link').value, quantity: document.getElementById('qty').value })
-  });
-  let data = await res.json();
-  document.getElementById('order-result').innerText = 'Result: ' + JSON.stringify(data);
-  btn.innerText = 'Order Lagao';
+let bal = 500;
+function selectSrv(v){ document.getElementById('srv').value=v; alert(v+' Select Ho Gaya ✅'); }
+function addBal(){ let a=prompt('Kitna Add Karna Hai?'); if(a){ bal+=Number(a); document.getElementById('cbal').innerText=bal; } }
+function placeOrder(){
+  let l=document.getElementById('link').value;
+  if(!l){ alert('Pehle Link Dalo'); return; }
+  document.getElementById('msg').innerText='✅ Order Place Ho Gaya! 5 Min Me Start Hoga.';
 }
-    </script>
+function ask(){
+  let q=document.getElementById('q').value.toLowerCase();
+  let a='Service select karo, Link dalo, Order dabao. Balance ke liye + Add dabao.';
+  if(q.includes('balance')) a='Apka Balance Rs '+bal+' hai.';
+  if(q.includes('order')) a='Apka Order Pending me hai, 5 min me start hoga.';
+  if(q.includes('price')) a='Sab se sasta: TikTok Likes Rs 120 / 1k.';
+  document.getElementById('amsg').innerText=a;
+}
+</script>
 </body>
 </html>
